@@ -1,11 +1,24 @@
 package projetofinal_JAVA;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import projetofinal_JAVA.model.Cliente;
+import projetofinal_JAVA.model.Produto;
+
 
 public class Menu {
 	public static void main(String[] args) {
 		Scanner leia = new Scanner(System.in);
 		int opcao;
+		
+		ArrayList<Produto> produtos = new ArrayList<>();
+
+        produtos.add(new Produto("Camiseta", 50.00));
+        produtos.add(new Produto("Calça", 70.00));
+        produtos.add(new Produto("Sapato", 100.00));
+
+       
 		
 		while (true) {
 
