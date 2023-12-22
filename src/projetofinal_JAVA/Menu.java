@@ -1,6 +1,7 @@
 package projetofinal_JAVA;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import projetofinal_JAVA.model.Cliente;
@@ -11,6 +12,7 @@ public class Menu {
 	public static void main(String[] args) {
 		Scanner leia = new Scanner(System.in);
 		int opcao;
+		String nome;
 		
 		ArrayList<Produto> produtos = new ArrayList<>();
 
@@ -36,8 +38,17 @@ public class Menu {
 			System.out.println("*****************************************************");
 			System.out.println("Entre com a opção desejada:                          ");
 			System.out.println("                                                     ");
+			
 
-			opcao = leia.nextInt();
+		
+			
+			try {
+				opcao = leia.nextInt();
+			} catch (InputMismatchException e) {
+				System.out.println("\nDigite um número das opções acima!");
+				leia.nextLine();
+				opcao = 0;
+			}
 
 			if (opcao == 4) {
 				System.out.println("\n Obrigada por apoiar nosso Brechó online, curadoria de peças feitas com afeto pra você!");
@@ -46,22 +57,42 @@ public class Menu {
 				System.exit(0);
 			}
 
+			
 			switch (opcao) {
 				case 1:
 					System.out.println("Listar Peças");
+		
+                    for (Produto produto : produtos) {
+                        System.out.println(produto);
+                    }
 
 					break;
 				case 2:
 					System.out.println("Adicionar Produtos");
-
+					System.out.println("Digite o nome do produto:");
+					leia.skip("\\R?");
+					nome = leia.nextLine();
+                    System.out.println("Digite o preço do produto:");
+                    double preco = leia.nextDouble();
+                    produtos.add(new Produto(nome, preco));
+					
 					break;
 				case 3:
 					System.out.println("Remover Produtos");
-
-					break;
+					System.out.println("Digite o nome do produto a ser removido:");
+					leia.skip("\\R?");
+					nome = leia.nextLine();
+					for (int indice = 0; indice < produtos.size(); indice++) {
+						if (produtos.get(indice).getNome().equals(nome)) {
+							produtos.remove(indice);
+							break;
+						}
+					}
+                        
+                    
 				case 4:
 					System.out.println("Finalizar Compra");
-					
+					 System.out.println("Obrigado pela compra!");
 					break;
 				default:
 					System.out.println("\nOpção Inválida!\n");
